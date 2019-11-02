@@ -48,7 +48,7 @@ public class MapRealizationTest {
         hash.put('A', 2);
         hash.put('A', 3);
         //hash.put('B', 2);
-        hash.delete('A');
+        hash.remove('A');
         Assert.assertTrue(hash.isEmpty());
 
     }
