@@ -44,7 +44,7 @@ public class MapRealizationTest {
     }
 
     @Test
-    public void delete() {
+    public void remove() {
         hash.put('A', 2);
         hash.put('A', 3);
         //hash.put('B', 2);
