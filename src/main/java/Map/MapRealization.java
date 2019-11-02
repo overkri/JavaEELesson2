@@ -3,9 +3,12 @@ package Map;
 public class MapRealization {
     Object key;
     Object value;
-    private int M = 16;
+    private int capacity = 16;
+    private int treshold = 16;
     private int size = 0;
-    private Object[] st = new Object[M];
+    private float loadFactor = 0.75f;
+    private float Multiplier = 1.5f;
+    private Object[] st = new Object[capacity];
 
     private class Node {
         Object key;
@@ -46,9 +49,18 @@ public class MapRealization {
         return null;
     }
 
-    public void delete(Object key) {
+    public void remove(Object key) {
         int i = hash(key);
         Node x = (Node) st[i];
+        
+        if ((size <= loadFactor * capacity) && (size / Multiplier > treshold)) {
+            int newcapacity = (int) Math.round(capacity / Multiplier);
+            Object[] st1 = new Object[newcapacity];
+            System.arraycopy(st, 0, st1, 0, capacity);
+            st = st1;
+            capacity = newcapacity;
+
+        }
 
         while (x != null) {
             if (key.equals(x.key)) {
@@ -70,6 +82,15 @@ public class MapRealization {
         }
         int i = hash(key);
         Node x = (Node) st[i];
+        
+         if (size >= loadFactor * capacity) {
+            int newcapacity = (int) Math.round(capacity * Multiplier);
+            Object[] st1 = new Object[newcapacity];
+            System.arraycopy(st, 0, st1, 0, capacity);
+            st = st1;
+            capacity = newcapacity;
+        }
+        
         while (x != null) {
             if (key.equals(x.key)) {
                 x.value = value;
