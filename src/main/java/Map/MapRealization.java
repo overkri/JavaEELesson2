@@ -31,7 +31,7 @@ public class MapRealization {
     }
 
     private int hash(Object key) {
-        return (key.hashCode() & 0x7fffffff) % M;
+        return (key.hashCode() & 0x7fffffff) % capacity;
     }
 
     public Object get(Object key) {
