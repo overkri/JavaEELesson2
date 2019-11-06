@@ -1,13 +1,12 @@
 package Map;
 
 public class MapRealization {
-    Object key;
-    Object value;
+
     private int capacity = 16;
     private int treshold = 16;
     private int size = 0;
     private float loadFactor = 0.75f;
-    private float Multiplier = 1.5f;
+    private float multiplier = 1.5f;
     private Object[] st = new Object[capacity];
 
     private class Node {
@@ -35,9 +34,7 @@ public class MapRealization {
     }
 
     public Object get(Object key) {
-        if (key == null) {
-            throw new IllegalArgumentException("Ключ не может равняться null");
-        }
+
         int i = hash(key);
         Node x = (Node) st[i];
         while (x != null) {
@@ -53,8 +50,8 @@ public class MapRealization {
         int i = hash(key);
         Node x = (Node) st[i];
         
-        if ((size <= loadFactor * capacity) && (size / Multiplier > treshold)) {
-            int newcapacity = (int) Math.round(capacity / Multiplier);
+        if ((size <= loadFactor * capacity) && (size / multiplier > treshold)) {
+            int newcapacity = (int) Math.round(capacity / multiplier);
             Object[] st1 = new Object[newcapacity];
             System.arraycopy(st, 0, st1, 0, capacity);
             st = st1;
@@ -77,14 +74,12 @@ public class MapRealization {
     }
 
     public void put(Object key, Object value) {
-        if (key == null) {
-            throw new IllegalArgumentException("Ключ не может равняться null");
-        }
+
         int i = hash(key);
         Node x = (Node) st[i];
         
          if (size >= loadFactor * capacity) {
-            int newcapacity = (int) Math.round(capacity * Multiplier);
+            int newcapacity = Math.round(capacity * multiplier);
             Object[] st1 = new Object[newcapacity];
             System.arraycopy(st, 0, st1, 0, capacity);
             st = st1;
